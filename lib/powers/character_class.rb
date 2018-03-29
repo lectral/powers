@@ -1,7 +1,7 @@
 module Powers
   class CharacterClass
-    attr_accessor :level,:name,:type
-    def initialize()
+    attr_accessor :level, :name, :type
+    def initialize
       yield(self)
       @level = 0
     end
@@ -10,10 +10,12 @@ module Powers
       @gain = block
     end
 
-    def tgain
-      @gain.call
+    def to_a
+      [@name, @type, @level, tgain]
     end
-   
-  end
 
+    def tgain
+      instance_eval(&@gain)
+    end
+  end
 end

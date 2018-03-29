@@ -13,10 +13,12 @@ module Powers
       end
     end
 
-    def get_by_name(name)
-      @characters.select {|a| a.name == name}
+    def all
+      @characters
     end
 
-
+    def get(&block)
+      @characters.select block
+    end
   end
 end

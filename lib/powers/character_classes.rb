@@ -14,10 +14,9 @@ module Powers
     end
 
     def get(name)
-      @classes.find {|a| a.name == name}
+      @classes.find { |a| a.name == name }
     end
 
     private
-    
   end
 end

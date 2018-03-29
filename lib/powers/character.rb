@@ -1,20 +1,20 @@
 module Powers
   class Character
-    attr_accessor :name, :source
+    attr_accessor :name, :source, :stories
     def initialize(&block)
       @stories = []
-      instance_eval(&block) 
+      instance_eval(&block)
     end
-    
-    def story(name,&block)
+
+    def story(name)
       story = Story.new
       story.name = name
       @stories.push story
-      block.call(@stories.last)
+      yield(@stories.last)
     end
 
-    def import(name,s)
-      s.classes = @stories.find {|a| a.name == name}.classes.map {|e| e.dup}
+    def import(name, s)
+      s.classes = @stories.find { |a| a.name == name }.classes.map(&:dup)
     end
 
     def cur_story
@@ -22,15 +22,12 @@ module Powers
     end
 
     def prev_story
-      @stories[@stories.length-1]
+      @stories[@stories.length - 1]
     end
 
-    def total_level(story) 
-      story = @stories.find {|a| a.name == story }
-      story.total_level 
+    def total_level(story)
+      story = @stories.find { |a| a.name == story }
+      story.total_level
     end
-
   end
 end
-
-  
