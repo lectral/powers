@@ -7,9 +7,11 @@ module Powers
 
     def print
       @data.each do |char|
+        puts "=== #{char.name} ==="
         char.stories.each do |story|
           print_story(story)
         end
+        puts "\n"
       end
     end
 

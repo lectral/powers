@@ -42,6 +42,7 @@ module Powers
 
     def print(view, result)
       ViewDetails.new(result).print if view == :details
+      ViewRanking.new(result).print if view == :ranking
     end
   end
 end
