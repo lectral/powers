@@ -9,12 +9,15 @@ module Powers
     def story(name)
       story = Story.new
       story.name = name
+      if(@stories.length > 0)
+        story.classes = @stories.last.classes.map(&:dup)
+      end
       @stories.push story
       yield(@stories.last)
     end
 
     def import(name, s)
-      s.classes = @stories.find { |a| a.name == name }.classes.map(&:dup)
+      puts "deprecated"
     end
 
     def cur_story

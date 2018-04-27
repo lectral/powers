@@ -5,11 +5,11 @@ module Powers
       @classes = []
     end
 
-    def class(name, level, type = :set)
+    def class(name, level)
       c = find_or_create(name)
-      if type == :set
+      if c.level == 0 
         c.level = level
-      elsif type == :+
+      else
         c.level += level
       end
     end

@@ -1,7 +1,7 @@
 module Powers
   class ViewRanking
     include ActionView::Helpers::NumberHelper
-    HEADINGS = %w[name source story bp bph].freeze
+    HEADINGS = %w[name source story lvl bp bph].freeze
     def initialize(result)
       @data = result
     end
@@ -10,13 +10,13 @@ module Powers
       to_print = []
       @data.each do |char|
         char.stories.each do |story|
-          to_print.push [char.name,char.source,story.name,story.total_gain]
+          to_print.push [char.name,char.source,story.name,story.total_level,story.total_gain]
         end
       end
-      to_print = to_print.sort_by {|a| a[3] }.reverse
+      to_print = to_print.sort_by {|a| a[4] }.reverse
       to_print.map do |a| 
-        a[4] = number_to_human(a[3])
-        a[3] = number_with_delimiter(a[3], :delimiter => " ")
+        a[5] = number_to_human(a[4])
+        a[4] = number_with_delimiter(a[4], :delimiter => " ")
       end
       print_ranking to_print
     end

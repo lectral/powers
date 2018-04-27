@@ -1,6 +1,6 @@
 module Powers
   class CharacterClass
-    attr_accessor :level, :name, :type
+    attr_accessor :level, :name, :type,:rank
     def initialize
       yield(self)
       @level = 0

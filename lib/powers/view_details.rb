@@ -1,6 +1,7 @@
 module Powers
   class ViewDetails
-    HEADINGS = %w[class type level gain].freeze
+    include ActionView::Helpers::NumberHelper
+    HEADINGS = %w[class type level gain hgain].freeze
     def initialize(result)
       @data = result
     end
@@ -17,16 +18,24 @@ module Powers
 
     def print_story(story)
       title = "#{story.name} (#{story.total_level} lvl)"
-      rows = story.to_a
+      story_a = story.to_a
+      story_a.map do |a|
+        a[0] = a[0]
+        a[4] = number_to_human(a[3])
+        a[3] = number_with_delimiter(a[3], :delimiter => " ")
+      end
+      rows = story_a 
       rows << :separator
-      rows << ['Sum', '', story.total_level, story.total_gain]
+      rows << ['Sum', '', story.total_level, 
+               number_with_delimiter(story.total_gain, :delimiter => " "),
+               number_to_human(story.total_gain)]
       puts table(title, rows)
     end
 
     def table(title, rows)
       Terminal::Table.new headings: HEADINGS,
-                          rows:  rows,
-                          title: title
+        rows:  rows,
+        title: title
     end
   end
 end
